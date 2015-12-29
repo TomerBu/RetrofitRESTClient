@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import entities.GitContributor;
-import entities.Item;
+import entities.GitUser;
 import entities.UserResults;
 import rest.RestClient;
 import retrofit.Call;
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         service.getUsersNamed("TomerBu").enqueue(new Callback<UserResults>() {
             @Override
             public void onResponse(Response<UserResults> response, Retrofit retrofit) {
-                List<Item> items = response.body().getItems();
-                Log.e("Tomer", items.toString());
+                List<GitUser> gitUsers = response.body().getGitUsers();
+                Log.e("Tomer", gitUsers.toString());
                 dialog.dismiss();
             }
 

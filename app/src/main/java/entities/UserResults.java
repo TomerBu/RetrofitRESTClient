@@ -1,6 +1,8 @@
 package entities;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +12,8 @@ public class UserResults {
 
     private Integer totalCount;
     private Boolean incompleteResults;
-    private List<Item> items = new ArrayList<Item>();
+    @SerializedName("items")
+    private List<GitUser> gitUsers = new ArrayList<GitUser>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -52,19 +55,19 @@ public class UserResults {
     /**
      *
      * @return
-     * The items
+     * The gitUsers
      */
-    public List<Item> getItems() {
-        return items;
+    public List<GitUser> getGitUsers() {
+        return gitUsers;
     }
 
     /**
      *
-     * @param items
-     * The items
+     * @param gitUsers
+     * The gitUsers
      */
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setGitUsers(List<GitUser> gitUsers) {
+        this.gitUsers = gitUsers;
     }
 
     public Map<String, Object> getAdditionalProperties() {

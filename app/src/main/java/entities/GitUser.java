@@ -3,7 +3,7 @@ package entities;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Item {
+public class GitUser {
 
     private String login;
     private Integer id;
@@ -359,7 +359,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
+        return "GitUser{" +
                 "additionalProperties=" + additionalProperties +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", eventsUrl='" + eventsUrl + '\'' +

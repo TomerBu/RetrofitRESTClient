@@ -3,7 +3,7 @@ package rest;
 import java.util.List;
 
 import entities.GitContributor;
-import entities.Item;
+import entities.GitUser;
 import entities.UserResults;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
@@ -39,7 +39,7 @@ public class RestClient {
         //More Examples. No usage:
         //Concrete user not search./Path
         @GET("/users/{username}")
-        Call<Item> getUser(@Path("username") String username);
+        Call<GitUser> getUser(@Path("username") String username);
 
         @GET("/group/{id}/users")
         Call<UserResults> groupList(@Path("id") int groupId, @Query("sort") String sort);
@@ -55,11 +55,11 @@ public class RestClient {
         //https://api.github.com/repos/iAndroidCollege/FragmentsDemo/contributors
         //
         @POST("/user/create")
-        Call<Item> createUser(@Body String name, @Body String email);
+        Call<GitUser> createUser(@Body String name, @Body String email);
 
 
         @Headers("User-Agent: RetroDemo")
         @POST("/users/new")
-        Call<Item> createUser(@Body UserResults user);
+        Call<GitUser> createUser(@Body UserResults user);
     }
 }
