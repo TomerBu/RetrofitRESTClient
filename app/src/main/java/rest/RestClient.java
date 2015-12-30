@@ -15,6 +15,7 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
+
 public class RestClient {
     private static final String BASE_URL = "https://api.github.com";
     private static GitAPI singleton;
@@ -31,6 +32,7 @@ public class RestClient {
     }
 
     public interface GitAPI {
+
 
         @GET("/search/users")
         Call<UserResults> getUsersNamed(@Query("q") String username);
@@ -61,5 +63,10 @@ public class RestClient {
         @Headers("User-Agent: RetroDemo")
         @POST("/users/new")
         Call<GitUser> createUser(@Body UserResults user);
+
+
+            @POST("/login")
+            Call<GitUser> basicLogin();
+
     }
 }

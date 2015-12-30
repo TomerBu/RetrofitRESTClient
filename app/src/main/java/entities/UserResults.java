@@ -12,6 +12,7 @@ public class UserResults {
 
     private Integer totalCount;
     private Boolean incompleteResults;
+
     @SerializedName("items")
     private List<GitUser> gitUsers = new ArrayList<GitUser>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();

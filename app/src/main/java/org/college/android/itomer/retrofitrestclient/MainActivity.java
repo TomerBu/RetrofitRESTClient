@@ -3,6 +3,7 @@ package org.college.android.itomer.retrofitrestclient;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,7 @@ import entities.GitContributor;
 import entities.GitUser;
 import entities.UserResults;
 import rest.RestClient;
+import rest.ServiceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -28,11 +30,18 @@ import retrofit.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity {
+    static final String SCOPE = "https://www.google.com/m8/feeds/";
+    static final String REDIRECT_URI = "http://localhost:8888";
+    static final String CLIENT_ID = "333002628743-a9gb1td68f619cv02eokm1kas0tut70g.apps.googleusercontent.com";
+    static final String BASE_URI = "https://accounts.google.com/o/oauth2";
+    public static final String GRANT_TYPE = "authorization_code";
+    public static final String CLIENT_SECRET = "UdpFNc7-onGp3Z-mv06iDXlU";
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.fab)
     FloatingActionButton fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +50,29 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BASE_URI + "/auth?redirect_uri=" +
+                REDIRECT_URI + "&response_type=code&client_id=" + CLIENT_ID + "&scope=" + SCOPE));
+        startActivity(intent);
         Log.e("TomerBu", ConnectivityNotifier.isConnected(MainActivity.this) + "");
         initConnNotifier();
+    }
 
-        gitHubClient();
+    private void gitClientWithBasicValidation() {
+        RestClient.GitAPI gitAPI = ServiceGenerator.createService(RestClient.GitAPI.class,
+                "iAndroidCollege", "college2015");
+        Call<GitUser> call = gitAPI.basicLogin();
+        call.enqueue(new Callback<GitUser>() {
+            @Override
+            public void onResponse(Response<GitUser> response, Retrofit retrofit) {
+                GitUser body = response.body();
+                Log.e("Tomer", response.raw().toString());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
     }
 
     private void initConnNotifier() {
@@ -128,4 +156,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
