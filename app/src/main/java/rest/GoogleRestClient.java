@@ -6,9 +6,10 @@ import entities.GoogleAccessToken;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.Headers;
 import retrofit.http.POST;
-import retrofit.http.Query;
 
 /**
  * Created by iTomer on 30/12/2015.
@@ -40,18 +41,22 @@ public class GoogleRestClient {
         return retrofit.create(serviceClass);
     }
 
+    /**
+     * client_id=" +
+     MainActivity.CLIENT_ID + "&client_secret=" +
+     MainActivity.CLIENT_SECRET + "&redirect_uri=" + MainActivity.REDIRECT_URI +
+     "&code=" + code + "&grant_type
+     */
     public interface GoogleRESTAPI {
-        @Headers({
-                "Accept: application/json",
-                "Content-Type: application/x-www-form-urlencoded",
-                "User-Agent: Java"})
+        @FormUrlEncoded
+        @Headers({ "Content-Type: application/x-www-form-urlencoded;charset=UTF-8"})
         @POST("/o/oauth2/token")
         Call<GoogleAccessToken> getAccessToken(
-                @Query("client_id") String clientID,
-                @Query("client_secret") String clientSecret,
-                @Query("redirect_uri") String redirectURI,
-                @Query("code") String code,
-                @Query("grant_type") String grantType/*authorization_code*/);
+                @Field("client_id") String clientID,
+                @Field("client_secret") String clientSecret,
+                @Field("redirect_uri") String redirectURI,
+                @Field("code") String code,
+                @Field("grant_type") String grantType);
     }
     /*
             params.add(new BasicNameValuePair("code", token));

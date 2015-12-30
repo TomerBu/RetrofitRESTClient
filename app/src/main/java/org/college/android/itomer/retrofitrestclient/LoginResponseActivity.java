@@ -44,7 +44,7 @@ public class LoginResponseActivity extends AppCompatActivity {
         }
     }
 
-    private void getAccessToken(String code) {
+    private void getAccessToken(final String code) {
         String shoo = "https://accounts.google.com/o/oauth2/token?client_id=" +
                 MainActivity.CLIENT_ID + "&client_secret=" +
                 MainActivity.CLIENT_SECRET + "&redirect_uri=" + MainActivity.REDIRECT_URI +
@@ -60,15 +60,8 @@ public class LoginResponseActivity extends AppCompatActivity {
                 enqueue(new Callback<GoogleAccessToken>() {
                     @Override
                     public void onResponse(Response<GoogleAccessToken> response, Retrofit retrofit) {
-                        String s = response.raw().toString();
-
-                        String s2 = response.headers().toString();
-                        int code1 = response.code();
-                        boolean success = response.isSuccess();
-                        String s1 = response.errorBody().toString();
-
                         GoogleAccessToken token = response.body();
-                        Log.e("Tomer", token.toString());
+                        Log.e("Tomer", token != null ? token.toString() : "No Token!");
                     }
 
                     @Override
